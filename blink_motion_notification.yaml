@@ -79,6 +79,7 @@ variables:
   motion_name: "{{ state_attr(motion_sensor, 'friendly_name') }}"
   is_ios: !input 'is_ios'
   num_snapshots: !input num_snapshots
+  num_delays: !input num_delays
   snapshot_access_file_path: '/local/snapshots/{{ camera_path }}_snapshot1.jpg'
   ai_prompt: !input ai_prompt
   condition_auto: !input condition_auto
@@ -99,7 +100,7 @@ action:
           target:
             entity_id: "{{ camera_device }}"            
         - delay:
-            milliseconds: "{{ (num_delays | int) }}"
+            milliseconds: "{{ ( num_delays | int) }}"
   - service: google_generative_ai_conversation.generate_content
     data:
       prompt: "{{ ai_prompt }}"
