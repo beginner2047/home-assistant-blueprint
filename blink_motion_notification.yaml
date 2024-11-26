@@ -100,7 +100,7 @@ action:
           target:
             entity_id: "{{ camera_device }}"            
         - delay:
-            milliseconds: "{{ ( num_delays | int) }}"
+            milliseconds: "{{ num_delays }}"
   - service: google_generative_ai_conversation.generate_content
     data:
       prompt: "{{ ai_prompt }}"
