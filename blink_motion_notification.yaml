@@ -49,7 +49,16 @@ blueprint:
           min: 1
           max: 5
           unit_of_measurement: snapshots
-      default: 3      
+      default: 3    
+    num_delays:
+      name: Inverval of snapsots
+      description: Interval for each snapshots (between 500 and 5000)
+      selector:
+        number:
+          min: 500
+          max: 5000
+          unit_of_measurement: milliseconds
+      default: 500         
     condition_auto:
       name: Add Condition(s) to run this Automation
       description: Add conditions if needed to run this automation at all. Note, if conditions return `false`, no actions will fire.
@@ -90,7 +99,7 @@ action:
           target:
             entity_id: "{{ camera_device }}"            
         - delay:
-            milliseconds: 500
+            milliseconds: "{{ num_delays }}"
   - service: google_generative_ai_conversation.generate_content
     data:
       prompt: "{{ ai_prompt }}"
