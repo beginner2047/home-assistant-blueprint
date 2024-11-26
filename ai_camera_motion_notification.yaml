@@ -81,13 +81,16 @@ action:
   - repeat:
       count: "{{ num_snapshots }}"
       sequence:
+        - service: blink.trigger_camera
+          target:
+            entity_id: "{{ camera_device }}"
         - service: camera.snapshot
           data:
             filename: "./www/snapshots/{{ camera_path }}_snapshot{{ repeat.index }}.jpg"
           target:
             entity_id: "{{ camera_device }}"
         - delay:
-            milliseconds: 500
+            milliseconds: 5000
   - service: google_generative_ai_conversation.generate_content
     data:
       prompt: "{{ ai_prompt }}"
