@@ -1,5 +1,5 @@
 blueprint:
-  name: Camera Snapshot, AI & Notification on Motion
+  name: Blink Camera Snapshot, AI & Notification on Motion
   description: Take snapshots, analyze with AI, and send notifications on motion detection
   domain: automation
   input:
@@ -81,16 +81,16 @@ action:
   - repeat:
       count: "{{ num_snapshots }}"
       sequence:
-        - service: blink.trigger_camera
-          target:
-            entity_id: "{{ camera_device }}"
         - service: camera.snapshot
           data:
             filename: "./www/snapshots/{{ camera_path }}_snapshot{{ repeat.index }}.jpg"
           target:
             entity_id: "{{ camera_device }}"
+        - service: blink.trigger_camera
+          target:
+            entity_id: "{{ camera_device }}"            
         - delay:
-            milliseconds: 5000
+            milliseconds: 500
   - service: google_generative_ai_conversation.generate_content
     data:
       prompt: "{{ ai_prompt }}"
@@ -117,6 +117,6 @@ action:
           - action: telegram_bot.send_photo
             metadata: {}
             data:
-              file: ./www/snapshots/{{ camera_path }}_snapshot1.jpg
+              file: ./www/snapshots/{{ camera_path }}_snapshot2.jpg
 
 mode: single
