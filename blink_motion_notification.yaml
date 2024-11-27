@@ -88,6 +88,11 @@ action:
 - if:
   - condition: !input condition_auto
   then:
+  - service: camera.snapshot
+    data:
+      filename: "./www/snapshots/{{ camera_path }}_snapshot0.jpg"
+    target:
+      entity_id: "{{ camera_device }}"
   - repeat:
       count: "{{ num_snapshots }}"
       sequence:
@@ -112,7 +117,7 @@ action:
       image_filename: >
         {% set snap_count = 3 %}
         {% set ns = namespace(images=[]) %}
-        {% for i in range(1, snap_count + 1) %}
+        {% for i in range(0, snap_count + 1) %}
           {% set image = "./www/snapshots/" ~ camera_path ~ "_snapshot" ~ i ~ ".jpg" %}
           {% set ns.images = ns.images + [image] %}
         {% endfor %}
