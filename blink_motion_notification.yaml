@@ -96,7 +96,7 @@ action:
             entity_id: "{{ camera_device }}"            
         - delay:
             milliseconds: "{{ num_delays }}"
-    - repeat:
+  - repeat:
       count: "{{ num_snapshots }}"
       sequence:
         - service: camera.snapshot
