@@ -91,16 +91,21 @@ action:
   - repeat:
       count: "{{ num_snapshots }}"
       sequence:
-        - service: camera.snapshot
-          data:
-            filename: "./www/snapshots/{{ camera_path }}_snapshot{{ repeat.index }}.jpg"
-          target:
-            entity_id: "{{ camera_device }}"
         - service: blink.trigger_camera
           target:
             entity_id: "{{ camera_device }}"            
         - delay:
             milliseconds: "{{ num_delays }}"
+    - repeat:
+      count: "{{ num_snapshots }}"
+      sequence:
+        - service: camera.snapshot
+          data:
+            filename: "./www/snapshots/{{ camera_path }}_snapshot{{ repeat.index }}.jpg"
+          target:
+            entity_id: "{{ camera_device }}"
+        - delay:
+            milliseconds: 15000
   - service: google_generative_ai_conversation.generate_content
     data:
       prompt: "{{ ai_prompt }}"
@@ -127,6 +132,6 @@ action:
           - action: telegram_bot.send_photo
             metadata: {}
             data:
-              file: ./www/snapshots/{{ camera_path }}_snapshot2.jpg
+              file: ./www/snapshots/{{ camera_path }}_snapshot3.jpg
 
 mode: single
