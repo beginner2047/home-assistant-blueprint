@@ -93,7 +93,7 @@ action:
       - conditions:
           - condition: template
             value_template: >
-              {{ response }} != 'Camera has detected motion however no obvious motion observed comparing snapshots.' }} 
+              {{ response != 'Camera has detected motion however no obvious motion observed comparing snapshots.' }} 
         sequence:
           - action: telegram_bot.send_message
             metadata: {}
@@ -107,7 +107,7 @@ action:
       - conditions:
           - condition: template
             value_template: >
-              {{ {{ response }} == 'Camera has detected motion however no obvious motion observed comparing snapshots.' }} 
+              {{ response == 'Camera has detected motion however no obvious motion observed comparing snapshots.' }} 
         sequence:
           - action: telegram_bot.send_message
             metadata: {}
