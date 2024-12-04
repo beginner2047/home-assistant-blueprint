@@ -94,7 +94,7 @@ action:
       - conditions:
           - condition: template
             value_template: >
-              {{ generated_content['text'] != 'Camera has detected person who is the family member. Testing' }} 
+              {{ generated_content['text'] != 'Camera has detected person who is the family member.' }} 
         sequence:
           - action: telegram_bot.send_message
             metadata: {}
@@ -105,4 +105,14 @@ action:
             metadata: {}
             data:
               file: /config/www/snapshots/{{ camera_path }}_snapshot1.jpg
+      - conditions:
+          - condition: template
+            value_template: >
+              {{ generated_content['text'] == 'Camera has detected person who is the family member.' }} 
+        sequence:
+          - action: telegram_bot.send_message
+            metadata: {}
+            data:
+              title: "{{ motion_name }} Detected"
+              message: "Welcome back"
 mode: single
