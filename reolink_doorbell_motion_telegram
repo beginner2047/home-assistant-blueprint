@@ -87,11 +87,13 @@ action:
         {% endfor %}
         {{ ns.images }}
     response_variable: generated_content
+  - variables:
+      response: "{{ generated_content['text'] | regex_replace('\s+', ' ') | trim }}"
   - choose:
       - conditions:
           - condition: template
             value_template: >
-              {{ '{{ generated_content[''text''] }}' != 'Camera has detected motion however no obvious motion observed comparing snapshots.' }} 
+              {{ response }} != 'Camera has detected motion however no obvious motion observed comparing snapshots.' }} 
         sequence:
           - action: telegram_bot.send_message
             metadata: {}
@@ -105,7 +107,7 @@ action:
       - conditions:
           - condition: template
             value_template: >
-              {{ '{{ generated_content[''text''] }}' == 'Camera has detected motion however no obvious motion observed comparing snapshots.' }} 
+              {{ {{ response }} == 'Camera has detected motion however no obvious motion observed comparing snapshots.' }} 
         sequence:
           - action: telegram_bot.send_message
             metadata: {}
