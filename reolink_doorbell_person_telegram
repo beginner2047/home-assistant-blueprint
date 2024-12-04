@@ -1,6 +1,6 @@
 blueprint:
   name: Reolink Doorbell on Person Detection
-  description: Take snapshots, analyze with AI, and send notifications on motion detection
+  description: Take snapshots, analyze with AI, and send notifications on person detection
   domain: automation
   input:
     camera_device:
