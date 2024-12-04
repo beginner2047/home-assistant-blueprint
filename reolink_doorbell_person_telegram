@@ -85,7 +85,9 @@ action:
           {% set ns.images = ns.images + [image] %}
         {% endfor %}
         {% set image = "./www/snapshots/my_family_1.jpg" %}
+        {% set ns.images = ns.images + [image] %}
         {% set image = "./www/snapshots/my_family_2.jpg" %}
+        {% set ns.images = ns.images + [image] %}
         {{ ns.images }}
     response_variable: generated_content
   - choose:
@@ -102,5 +104,5 @@ action:
           - action: telegram_bot.send_photo
             metadata: {}
             data:
-              file: ./www/snapshots/{{ camera_path }}_snapshot1.jpg
+              file: /config/www/snapshots/{{ camera_path }}_snapshot1.jpg
 mode: single
