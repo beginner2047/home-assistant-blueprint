@@ -1,5 +1,5 @@
 blueprint:
-  name: Reolink Doorbell on Person Detection
+  name: Reolink Doorbell on Vehicle Detection
   description: Take snapshots, analyze with AI, and send notifications on person detection
   domain: automation
   input:
